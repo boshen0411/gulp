@@ -1,0 +1,56 @@
+<include src="../component/header.html" title="维修"></include>
+    <section>
+        <div>
+          <button id="test">测试</button>
+        </div>
+        <input type="checkbox" name='username' value="132" id="name1">
+        <label for="name1">保留</label>
+        <input type="checkbox" name='username' value="13" id="name2">
+        <label for="name2">博士</label>
+        <input type="checkbox" name='username' value="12" id="name3">
+        <label for="name3">詹姆斯</label>
+        <input type="checkbox" name='username' value="10532" id="name4">
+        <label for="name4">杜兰特</label>
+        <input type="text" name='chris' id="chris" value="23445">
+    </section>
+    <script>
+        var qInfo;
+        $('#test').click(function(){
+            $('input[name="username"]').filter("[type='checkbox']:checked").each(function(index,inputItemObj){
+                // qInfo += $(inputItemObj).find(" + label").html() +" | "
+                console.log(getInputVal($('input[name="username"]')));
+            })
+            console.log(qInfo);
+        })
+        console.log(getInputVal($('#chris')));
+        function getInputVal(oTag, arrFlag) {
+            var $this = $(oTag);
+            console.log($this);
+            var val_arrs = [];
+            if ($this.length) {
+                switch ($this[0].tagName) {
+                    case 'INPUT':
+                        var tType = $this.attr("type");
+                        if (tType === "checkbox" || tType === "radio") {
+                            var $selObj = $this.filter(":checked");
+                            $selObj.each(function() {
+                                val_arrs.push($(this).val());
+                            });
+
+                        } else {
+                            val_arrs.push($this.val());
+                        }
+                        break;
+                    default:
+                        val_arrs.push($this.val());
+                }
+            }
+            if (arrFlag) {
+                return val_arrs;
+            } else {
+                return val_arrs.join(";")
+            }
+        }
+    </script>
+<script src="../lib/common.js"></script>
+<include src="../component/footer.html"></include>
